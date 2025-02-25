@@ -58,8 +58,10 @@ export async function POST(req: NextRequest) {
 
     for (let index = 0; index < rows.length; index++) {
       const row = rows[index];
-      const actualRowNum = index + START_ROW;
-
+      if (!row) {
+        console.log(`Skipping row ${index} - Row is null`);
+        continue;
+      }
       // Get all cells including empty ones
       const cells = $(row).find("td");
       const cellContents = cells.map((i, cell) => $(cell).text().trim()).get();
@@ -77,7 +79,7 @@ export async function POST(req: NextRequest) {
       }
 
       // Parse timestamp (DD/MM/YYYY HH:mm:ss)
-      const [datePart, timePart] = rawTimestamp.split(" ");
+      const [datePart] = rawTimestamp.split(" ");
       const [day, month, year] = datePart.split("/");
 
       // Create UTC date (to avoid timezone issues)
