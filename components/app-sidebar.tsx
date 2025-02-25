@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, Upload, CloudSunRain } from "lucide-react";
+import { LayoutDashboard, Upload, CloudSunRain, Sun, Moon } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -10,6 +10,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { usePathname, useRouter } from "next/navigation";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "next-themes";
 
 const menuItems = [
   {
@@ -32,6 +34,7 @@ const menuItems = [
 export function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
 
   return (
     <Sidebar>
@@ -51,6 +54,18 @@ export function AppSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
+          <SidebarMenuItem>
+            <div className="flex items-center px-3 py-2">
+              <Sun className="h-4 w-4 mr-2" />
+              <Switch
+                checked={theme === "dark"}
+                onCheckedChange={(checked) =>
+                  setTheme(checked ? "dark" : "light")
+                }
+              />
+              <Moon className="h-4 w-4 ml-2" />
+            </div>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
     </Sidebar>

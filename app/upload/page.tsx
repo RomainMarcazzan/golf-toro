@@ -62,7 +62,7 @@ export default function UploadPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full p-6 border border-red-500">
+    <div className="flex flex-col items-center justify-center h-full w-full p-6">
       <div className="space-y-2 text-center">
         <h1 className="text-2xl font-bold">Upload Weather Report</h1>
         <p className="text-gray-500 text-sm">
