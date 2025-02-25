@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, Upload } from "lucide-react";
+import { LayoutDashboard, Upload, CloudSunRain } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -21,6 +21,11 @@ const menuItems = [
     title: "Upload Data",
     icon: Upload,
     href: "/upload",
+  },
+  {
+    title: "Weather Data",
+    icon: CloudSunRain,
+    href: "/weather",
   },
 ];
 
