@@ -1,0 +1,21 @@
+-- AlterTable
+ALTER TABLE "WeatherData" ALTER COLUMN "temperatureAvg" DROP NOT NULL,
+ALTER COLUMN "temperatureMin" DROP NOT NULL,
+ALTER COLUMN "temperatureMax" DROP NOT NULL,
+ALTER COLUMN "humidityAvg" DROP NOT NULL,
+ALTER COLUMN "humidityMin" DROP NOT NULL,
+ALTER COLUMN "humidityMax" DROP NOT NULL,
+ALTER COLUMN "radiationAvg" DROP NOT NULL,
+ALTER COLUMN "radiationMin" DROP NOT NULL,
+ALTER COLUMN "radiationMax" DROP NOT NULL,
+ALTER COLUMN "windAvg" DROP NOT NULL,
+ALTER COLUMN "windMin" DROP NOT NULL,
+ALTER COLUMN "windMax" DROP NOT NULL,
+ALTER COLUMN "dewPointAvg" DROP NOT NULL,
+ALTER COLUMN "dewPointMin" DROP NOT NULL,
+ALTER COLUMN "dewPointMax" DROP NOT NULL,
+ALTER COLUMN "precipitation" DROP NOT NULL,
+ALTER COLUMN "et" DROP NOT NULL;
+
+-- CreateIndex
+CREATE INDEX "WeatherData_timestamp_idx" ON "WeatherData"("timestamp");
