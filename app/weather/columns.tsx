@@ -12,6 +12,15 @@ function formatDate(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 
+function parseDate(dateStr: string): Date | null {
+  const parts = dateStr.split("/");
+  if (parts.length === 3) {
+    const [day, month, year] = parts;
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  }
+  return null;
+}
+
 export const columns: ColumnDef<WeatherData>[] = [
   {
     accessorKey: "timestamp",
@@ -29,6 +38,21 @@ export const columns: ColumnDef<WeatherData>[] = [
     cell: ({ row }) => {
       const date = new Date(row.getValue("timestamp"));
       return formatDate(date);
+    },
+    filterFn: (row, id, value) => {
+      if (!value) return true;
+
+      const rowDate = new Date(row.getValue(id));
+      const searchDate = parseDate(value);
+
+      if (searchDate) {
+        // Compare exact dates
+        return formatDate(rowDate) === formatDate(searchDate);
+      }
+
+      // Fallback to includes for partial matches
+      const formattedRowDate = formatDate(rowDate);
+      return formattedRowDate.includes(value);
     },
   },
   {

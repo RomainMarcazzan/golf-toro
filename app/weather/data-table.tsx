@@ -47,6 +47,10 @@ export function DataTable<TData, TValue>({
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 50, // Show 50 rows per page
+  });
 
   const table = useReactTable({
     data,
@@ -58,10 +62,12 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
+      pagination,
     },
   });
 
@@ -69,7 +75,7 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center justify-between py-4">
         <Input
-          placeholder="Filter by date..."
+          placeholder="Filter by date (dd/mm/yyyy)..."
           value={
             (table.getColumn("timestamp")?.getFilterValue() as string) ?? ""
           }
@@ -149,6 +155,30 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+      </div>
+      <div className="flex items-center justify-between space-x-2 py-4">
+        <div className="flex-1 text-sm text-muted-foreground">
+          Page {table.getState().pagination.pageIndex + 1} of{" "}
+          {table.getPageCount()}
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );
