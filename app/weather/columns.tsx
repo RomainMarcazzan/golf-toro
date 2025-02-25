@@ -16,7 +16,10 @@ function parseDate(dateStr: string): Date | null {
   const parts = dateStr.split("/");
   if (parts.length === 3) {
     const [day, month, year] = parts;
-    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    // Create date using UTC to avoid timezone issues
+    return new Date(
+      Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day))
+    );
   }
   return null;
 }
@@ -42,12 +45,21 @@ export const columns: ColumnDef<WeatherData>[] = [
     filterFn: (row, id, value) => {
       if (!value) return true;
 
+      // Create UTC dates for comparison
       const rowDate = new Date(row.getValue(id));
+      const rowUTC = new Date(
+        Date.UTC(
+          rowDate.getUTCFullYear(),
+          rowDate.getUTCMonth(),
+          rowDate.getUTCDate()
+        )
+      );
+
       const searchDate = parseDate(value);
 
       if (searchDate) {
-        // Compare exact dates
-        return formatDate(rowDate) === formatDate(searchDate);
+        // Compare dates using UTC timestamps
+        return rowUTC.getTime() === searchDate.getTime();
       }
 
       // Fallback to includes for partial matches
