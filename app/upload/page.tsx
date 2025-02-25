@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -54,14 +55,14 @@ export default function UploadPage() {
         setMessage("Error: " + result.error);
       }
     } catch (error) {
-      setMessage("Error uploading file");
+      setMessage(`Error uploading file: ${error}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center h-full w-full p-6 border border-red-500">
       <div className="space-y-2 text-center">
         <h1 className="text-2xl font-bold">Upload Weather Report</h1>
         <p className="text-gray-500 text-sm">
@@ -74,19 +75,21 @@ export default function UploadPage() {
           <FormField
             control={form.control}
             name="htmlFile"
-            render={({ field: { onChange, value, ...field } }) => (
+            render={({ field: { onChange, ...field } }) => (
               <FormItem>
                 <FormLabel>Weather Report File</FormLabel>
                 <FormControl>
-                  <input
+                  <Input
                     type="file"
                     accept=".html"
                     onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (file) onChange(file);
                     }}
-                    className="w-full cursor-pointer rounded-lg border border-gray-200 px-3 py-2 text-sm"
-                    {...field}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    ref={field.ref}
+                    disabled={isSubmitting}
                   />
                 </FormControl>
                 <FormDescription>
