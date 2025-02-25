@@ -150,12 +150,42 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Insert extracted data into PostgreSQL via Prisma
-    await prisma.weatherData.createMany({ data: weatherData });
+    // Get all existing timestamps from the database
+    const existingData = await prisma.weatherData.findMany({
+      where: {
+        timestamp: {
+          in: weatherData.map((entry) => entry.timestamp),
+        },
+      },
+      select: {
+        timestamp: true,
+      },
+    });
+
+    // Create a Set of existing timestamps for faster lookup
+    const existingTimestamps = new Set(
+      existingData.map((entry) => entry.timestamp.toISOString())
+    );
+
+    // Filter out entries that already exist
+    const newData = weatherData.filter(
+      (entry) => !existingTimestamps.has(entry.timestamp.toISOString())
+    );
+
+    console.log(
+      `Found ${weatherData.length - newData.length} existing entries`
+    );
+    console.log(`Inserting ${newData.length} new entries`);
+
+    if (newData.length > 0) {
+      // Insert only new data into PostgreSQL via Prisma
+      await prisma.weatherData.createMany({ data: newData });
+    }
 
     return NextResponse.json({
       message: "File processed successfully",
-      data: weatherData,
+      totalProcessed: weatherData.length,
+      newEntriesAdded: newData.length,
     });
   } catch (error) {
     console.error("Error processing file:", error);
