@@ -15,7 +15,7 @@ const menuItems = [
   {
     title: "Dashboard",
     icon: LayoutDashboard,
-    href: "/dashboard",
+    href: "/",
   },
   {
     title: "Upload Data",

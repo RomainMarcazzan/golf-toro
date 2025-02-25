@@ -41,9 +41,9 @@ export function DrawerDemo() {
           </DrawerHeader>
           <div className="p-4 space-y-2">
             <Button
-              variant={isActive("/dashboard") ? "default" : "ghost"}
+              variant={isActive("/") ? "default" : "ghost"}
               className="w-full justify-start"
-              onClick={() => handleNavigation("/dashboard")}
+              onClick={() => handleNavigation("/")}
             >
               Dashboard
             </Button>
