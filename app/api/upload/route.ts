@@ -138,8 +138,8 @@ export async function POST(req: NextRequest) {
         dewPointMax: parseNumber(cellContents[20] || null),
         precipitation: parseNumber(
           cellContents[cellContents.length - 2] || null
-        ), // Get precipitation from second to last cell
-        et: parseNumber(cellContents[cellContents.length - 1] || null), // ET is in the last cell
+        ), // Use second-to-last cell
+        et: parseNumber(cellContents[cellContents.length - 1] || null), // Use last cell
       };
 
       // Debug output to verify
