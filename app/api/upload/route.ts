@@ -51,39 +51,23 @@ export async function POST(req: NextRequest) {
 
     // Extract data from the table
     const weatherData: any[] = [];
-    const START_ROW = 9; // Start with first data row
-    const END_ROW = 14; // Only process 5 rows for testing
+    const START_ROW = 9; // Start with first data row after headers
 
-    console.log(
-      `Starting data extraction from row ${START_ROW} to ${END_ROW}...`
-    );
+    console.log("Starting data extraction...");
 
-    // Process only specific rows
-    const rows = $("tr").toArray().slice(START_ROW, END_ROW);
+    // Process all rows after the header
+    const rows = $("tr").toArray().slice(START_ROW);
 
     for (let index = 0; index < rows.length; index++) {
       const row = rows[index];
       const actualRowNum = index + START_ROW;
-      console.log(`\nProcessing row ${actualRowNum}:`);
 
       // Get all cells including empty ones
       const cells = $(row).find("td");
       const cellContents = cells.map((i, cell) => $(cell).text().trim()).get();
 
-      // Debug cell access
-      console.log("Row debug:", {
-        totalCells: cellContents.length,
-        lastCell: cellContents[cellContents.length - 1],
-        secondToLast: cellContents[cellContents.length - 2],
-        etValue: parseNumber(cellContents[cellContents.length - 1] || null),
-        lastThreeCells: cellContents.slice(-3),
-      });
-
       // Skip rows without enough data
       if (cellContents.length < 24) {
-        console.log(
-          `Skipping row - insufficient data (found ${cellContents.length} cells)`
-        );
         continue;
       }
 
