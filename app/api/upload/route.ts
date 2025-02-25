@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/app/lib/db";
 import * as cheerio from "cheerio";
 import path from "path";
-
-const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   try {
