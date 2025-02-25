@@ -7,7 +7,7 @@ export async function getWeatherData(): Promise<WeatherData[]> {
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
 
   const response = await fetch(`${protocol}://${host}/api/weather`, {
-    cache: "no-store",
+    //cache: "no-store",
     next: { tags: ["weather"] },
   });
 

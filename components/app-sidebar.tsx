@@ -44,7 +44,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarMenu>
           {menuItems.map((item) => (
-            <SidebarMenuItem key={item.href}>
+            <SidebarMenuItem key={item.href} className="my-2">
               <SidebarMenuButton
                 onClick={() => router.push(item.href)}
                 isActive={pathname === item.href}
@@ -55,7 +55,7 @@ export function AppSidebar() {
             </SidebarMenuItem>
           ))}
           <SidebarMenuItem>
-            <div className="flex items-center px-3 py-2">
+            <div className="flex items-center px-3 py-4">
               <Sun className="h-4 w-4 mr-2" />
               <Switch
                 checked={theme === "dark"}
