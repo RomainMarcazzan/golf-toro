@@ -4,6 +4,27 @@ import { prisma } from "@/app/lib/db";
 import * as cheerio from "cheerio";
 import path from "path";
 
+interface WeatherData {
+  timestamp: Date;
+  temperatureAvg: number | null;
+  temperatureMin: number | null;
+  temperatureMax: number | null;
+  humidityAvg: number | null;
+  humidityMin: number | null;
+  humidityMax: number | null;
+  radiationAvg: number | null;
+  radiationMin: number | null;
+  radiationMax: number | null;
+  windAvg: number | null;
+  windMin: number | null;
+  windMax: number | null;
+  dewPointAvg: number | null;
+  dewPointMin: number | null;
+  dewPointMax: number | null;
+  precipitation: number | null;
+  et: number | null;
+}
+
 export async function POST(req: NextRequest) {
   try {
     // Ensure request is a multipart form
@@ -48,7 +69,7 @@ export async function POST(req: NextRequest) {
     console.log("Number of rows found:", $("tr").length);
 
     // Extract data from the table
-    const weatherData: any[] = [];
+    const weatherData: WeatherData[] = [];
     const START_ROW = 9; // Start with first data row after headers
 
     console.log("Starting data extraction...");
