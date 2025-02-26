@@ -38,7 +38,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <>
               <AppSidebar />
               <main className="flex-1">
-                <SidebarTrigger />
+                <div className="flex items-center px-4 py-2">
+                  <SidebarTrigger />
+                </div>
                 {children}
               </main>
             </>
