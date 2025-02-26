@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import {
   Line,
   LineChart,
+  BarChart,
+  Bar,
   ResponsiveContainer,
   Tooltip,
   TooltipProps,
@@ -96,12 +98,12 @@ export function WeatherCharts({ data }: { data: WeatherData[] }) {
       <Card className="p-4">
         <h3 className="mb-4">Precipitation (mm)</h3>
         <ResponsiveContainer width="100%" height={200}>
-          <LineChart data={data}>
+          <BarChart data={data}>
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip content={<CustomTooltip />} />
-            <Line type="monotone" dataKey="precipitation" stroke="#22c55e" />
-          </LineChart>
+            <Bar dataKey="precipitation" fill="#22c55e" />
+          </BarChart>
         </ResponsiveContainer>
       </Card>
 
