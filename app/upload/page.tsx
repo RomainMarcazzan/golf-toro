@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   htmlFile: z
@@ -33,6 +34,7 @@ export default function UploadPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const router = useRouter();
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
@@ -51,6 +53,7 @@ export default function UploadPage() {
       if (response.ok) {
         setMessage("Upload successful! ✅ Data saved.");
         form.reset();
+        router.push('/weather');
       } else {
         setMessage("Error: " + result.error);
       }

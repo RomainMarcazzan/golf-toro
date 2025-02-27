@@ -18,3 +18,18 @@ export async function GET() {
     );
   }
 }
+
+export async function DELETE() {
+  try {
+    await prisma.weatherData.deleteMany({});
+    return NextResponse.json({
+      message: "All weather data deleted successfully",
+    });
+  } catch (error) {
+    console.error("Failed to delete weather data:", error);
+    return NextResponse.json(
+      { error: "Failed to delete weather data" },
+      { status: 500 }
+    );
+  }
+}

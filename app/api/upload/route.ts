@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
+import { writeFile, mkdir, unlink } from "fs/promises";
 import { prisma } from "@/app/lib/db";
 import * as cheerio from "cheerio";
 import path from "path";
@@ -202,6 +202,9 @@ export async function POST(req: NextRequest) {
       // Insert only new data into PostgreSQL via Prisma
       await prisma.weatherData.createMany({ data: newData });
     }
+
+    // After successfully storing in database, delete the file using unlink directly
+    await unlink(filePath);
 
     return NextResponse.json({
       message: "File processed successfully",
