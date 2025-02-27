@@ -13,7 +13,11 @@ export async function getWeatherData(): Promise<WeatherData[]> {
   return response.json();
 }
 
-export async function deleteWeatherData(): Promise<void> {
+interface DeleteWeatherResponse {
+  message: string;
+}
+
+export async function deleteWeatherData(): Promise<DeleteWeatherResponse> {
   const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/weather`, {
     method: "DELETE",
   });
@@ -22,6 +26,5 @@ export async function deleteWeatherData(): Promise<void> {
     throw new Error(`Failed to delete weather data: ${response.statusText}`);
   }
 
-  const data = await response.json();
-  return data;
+  return response.json();
 }

@@ -18,8 +18,8 @@ export function WeatherClient({ weatherData }: WeatherClientProps) {
   const handleDelete = async () => {
     if (confirm("Are you sure you want to delete all weather data?")) {
       try {
-        const result = await deleteWeatherData();
-        alert(result.message); // Show the success message
+        const { message } = await deleteWeatherData();
+        alert(message);
         router.refresh();
       } catch (error) {
         console.error("Failed to delete weather data:", error);
