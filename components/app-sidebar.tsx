@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import React from "react";
 
 const menuItems = [
   {
@@ -48,6 +49,19 @@ export function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const ThemeIcon = mounted
+    ? theme === "dark"
+      ? Moon
+      : theme === "light"
+      ? Sun
+      : Laptop
+    : Laptop;
 
   return (
     <Sidebar>
@@ -72,13 +86,7 @@ export function AppSidebar() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="icon">
-                    {theme === "light" ? (
-                      <Sun className="h-[1.2rem] w-[1.2rem]" />
-                    ) : theme === "dark" ? (
-                      <Moon className="h-[1.2rem] w-[1.2rem]" />
-                    ) : (
-                      <Laptop className="h-[1.2rem] w-[1.2rem]" />
-                    )}
+                    <ThemeIcon className="h-[1.2rem] w-[1.2rem]" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
