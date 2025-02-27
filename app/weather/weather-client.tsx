@@ -39,7 +39,10 @@ export function WeatherClient({ weatherData }: WeatherClientProps) {
       router.refresh();
     } catch (error) {
       setDeleteStatus({
-        message: "Failed to delete weather data",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to delete weather data",
         type: "error",
       });
     } finally {
