@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Providers } from "@/components/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,26 +26,18 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SidebarProvider>
-            <>
-              <AppSidebar />
-              <main className="flex-1">
-                <div className="flex items-center px-4 py-2">
-                  <SidebarTrigger />
-                </div>
-                {children}
-              </main>
-            </>
-          </SidebarProvider>
-        </ThemeProvider>
+        <Providers>
+          <>
+            <AppSidebar />
+            <main className="flex-1">
+              <div className="flex items-center px-4 py-2">
+                <SidebarTrigger />
+              </div>
+              {children}
+            </main>
+          </>
+        </Providers>
       </body>
     </html>
   );

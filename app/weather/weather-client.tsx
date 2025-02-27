@@ -2,7 +2,7 @@
 
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import { deleteWeatherData } from "../lib/weather";
+import { deleteWeatherData } from "../../lib/weather";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";

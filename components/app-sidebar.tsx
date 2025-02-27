@@ -1,6 +1,13 @@
 "use client";
 
-import { LayoutDashboard, Upload, CloudSunRain, Sun, Moon } from "lucide-react";
+import {
+  LayoutDashboard,
+  Upload,
+  CloudSunRain,
+  Sun,
+  Moon,
+  Laptop,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -10,7 +17,13 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { usePathname, useRouter } from "next/navigation";
-import { Switch } from "@/components/ui/switch";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 
 const menuItems = [
@@ -55,15 +68,34 @@ export function AppSidebar() {
             </SidebarMenuItem>
           ))}
           <SidebarMenuItem>
-            <div className="flex items-center px-3 py-4">
-              <Sun className="h-4 w-4 mr-2" />
-              <Switch
-                checked={theme === "dark"}
-                onCheckedChange={(checked) =>
-                  setTheme(checked ? "dark" : "light")
-                }
-              />
-              <Moon className="h-4 w-4 ml-2" />
+            <div className="px-3 py-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    {theme === "light" ? (
+                      <Sun className="h-[1.2rem] w-[1.2rem]" />
+                    ) : theme === "dark" ? (
+                      <Moon className="h-[1.2rem] w-[1.2rem]" />
+                    ) : (
+                      <Laptop className="h-[1.2rem] w-[1.2rem]" />
+                    )}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => setTheme("light")}>
+                    <Sun className="h-4 w-4 mr-2" />
+                    Light
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("dark")}>
+                    <Moon className="h-4 w-4 mr-2" />
+                    Dark
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("system")}>
+                    <Laptop className="h-4 w-4 mr-2" />
+                    System
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </SidebarMenuItem>
         </SidebarMenu>

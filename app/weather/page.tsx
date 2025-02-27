@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getWeatherData } from "../lib/weather";
+import { getWeatherData } from "../../lib/weather";
 import Loading from "./loading";
 import { WeatherClient } from "./weather-client";
 

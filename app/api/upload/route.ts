@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { writeFile, mkdir, unlink } from "fs/promises";
-import { prisma } from "@/app/lib/db";
+import { prisma } from "@/lib/db";
 import * as cheerio from "cheerio";
 import path from "path";
 

@@ -1,6 +1,6 @@
-import { getWeatherData } from "@/app/lib/weather";
 import { WeatherCharts } from "@/components/WeatherCharts";
 import { Button } from "@/components/ui/button";
+import { getWeatherData } from "@/lib/weather";
 import Link from "next/link";
 
 export default async function Home() {
